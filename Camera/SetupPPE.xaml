@@ -1,0 +1,58 @@
+﻿<telerik:RadRibbonWindow x:Class="Camera.SetupPPE"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="SetupPPE" 
+        Width="300" 
+        Height="350" 
+        IsTitleVisible="True"
+                >
+    <Grid x:Name="topSect">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+
+        </Grid.RowDefinitions>
+        
+        <!--<telerik:RadButton      HorizontalAlignment="Stretch" Margin="2,2,2,2"  Grid.Column="0"   Grid.Row="1"  >
+            <Image Source="/resources/Image/man.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton    HorizontalAlignment="Stretch" Margin="2,2,2,2"      Grid.Column="1"   Grid.Row="1"   >
+            <Image Source="/resources/Image/headphone.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton     HorizontalAlignment="Stretch" Margin="2,2,2,2"    Grid.Column="2"   Grid.Row="1"   >
+            <Image Source="/resources/Image/hand.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton   HorizontalAlignment="Stretch" Margin="2,2,2,2"      Grid.Column="3"   Grid.Row="1"   >
+            <Image Source="/resources/Image/cap.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton    HorizontalAlignment="Stretch" Margin="2,2,2,2"      Grid.Column="4"   Grid.Row="1"   >
+            <Image Source="/resources/Image/gas-mask.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton    HorizontalAlignment="Stretch" Margin="2,2,2,2"      Grid.Column="1"   Grid.Row="2"   >
+            <Image Source="/resources/Image/std.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton     HorizontalAlignment="Stretch" Margin="2,2,2,2"    Grid.Column="2"  Grid.Row="2"   >
+            <Image Source="/resources/Image/safety-glasses.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton   HorizontalAlignment="Stretch" Margin="2,2,2,2"      Grid.Column="3"  Grid.Row="2"   >
+            <Image Source="/resources/Image/close.png"  />
+        </telerik:RadButton>
+        <telerik:RadButton    HorizontalAlignment="Stretch" Margin="2,2,2,2"  Content="OK" FontSize="16" FontWeight="Medium"    Grid.ColumnSpan="6"  Grid.Row="4"    >
+        </telerik:RadButton>-->
+        <telerik:RadButton x:Name="SavePpeIcons" Click="SavePpeIcons_Click"  HorizontalAlignment="Stretch" Margin="2,2,2,2"  Content="OK" FontSize="16" FontWeight="Medium"    Grid.ColumnSpan="6"  Grid.Row="4"    >
+        </telerik:RadButton>
+    </Grid>
+</telerik:RadRibbonWindow> 

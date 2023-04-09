@@ -1,0 +1,16 @@
+﻿<telerik:RadRibbonWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        WindowStyle="None" 
+        x:Class="Camera.OperatorAwarenessView" Closed="Windows_Closed"
+    d:DesignWidth="200" d:DesignHeight="100"
+    >
+    <Grid>
+        <telerik:RadButton   x:Name="logoButton" Click="logoButton_Click">
+            <Image Source="/resources/Image/g4s-logo.png" x:Name="ImgAwarnessLogo" Width="60"/>
+        </telerik:RadButton>
+
+    </Grid>
+</telerik:RadRibbonWindow>

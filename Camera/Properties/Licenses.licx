@@ -1,0 +1,11 @@
+Telerik.Windows.Controls.RadLayoutControl, Telerik.Windows.Controls.Navigation, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadWatermarkTextBox, Telerik.Windows.Controls, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadMaskedTextInput, Telerik.Windows.Controls.Input, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadPasswordBox, Telerik.Windows.Controls, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadButton, Telerik.Windows.Controls, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadMaskedCurrencyInput, Telerik.Windows.Controls.Input, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadTabControl, Telerik.Windows.Controls.Navigation, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadListBox, Telerik.Windows.Controls, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadToggleSwitchButton, Telerik.Windows.Controls, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadComboBox, Telerik.Windows.Controls.Input, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
+Telerik.Windows.Controls.RadOpenFileDialog, Telerik.Windows.Controls.FileDialogs, Version=2021.2.615.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7
