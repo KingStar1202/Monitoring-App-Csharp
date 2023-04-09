@@ -12,6 +12,8 @@ using System.Xml.Linq;
 using Xamarin.Forms;
 using System.Xml;
 using Camera.constants;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace Camera.net2access
 {
@@ -27,10 +29,11 @@ namespace Camera.net2access
 
         public void ReadFileAndSaveToDatabase()
         {
-            string location = ConfigurationManager.AppSettings["WHOSIN_FILE_LOCATION"].ToString();
+            string location = propertyUtil.GetNet2AccessDataFileLocation();
             try
             {
                 SaveRoomDataToDatabase(GetListOfRoomDataFromFile(location));
+                
                 cameraOverView.UpdatePeopleInRooms();
             }
             catch (IOException e)
@@ -42,47 +45,55 @@ namespace Camera.net2access
 
         private Dictionary<String, List<Net2RoomData>> GetListOfRoomDataFromFile(String location)
         {
-            string doc = File.ReadAllText(location);
             Dictionary<string, List<Net2RoomData>> mapOfRooms = new Dictionary<string, List<Net2RoomData>>();
-            XmlDocument document = new XmlDocument();
-            document.LoadXml(doc);
-            XmlNodeList table = document.GetElementsByTagName("table");
-           
-          
-            foreach (XmlNode element in table)
+            try
             {
-                XmlNodeList rows = element.OwnerDocument.GetElementsByTagName("tr");
-                foreach (XmlNode row in rows)
+                string doc = File.ReadAllText(location);
+                XmlDocument document = new XmlDocument();
+                document.LoadXml(doc);
+                XmlNodeList tables = document.GetElementsByTagName("table");
+
+                foreach (XmlNode table in tables)
                 {
-                    XmlNodeList tableData = row.OwnerDocument.GetElementsByTagName("td");
-                    if (tableData.Count == 3)
+                    XmlNodeList rows = table.SelectNodes("tr");
+                    foreach (XmlNode row in rows)
                     {
-                        String user = tableData.Item(0).Value.ToString();
-                        String roomName = tableData.Item(1).Value.ToString();
-                        String lastTime = tableData.Item(2).Value.ToString();
-
-                        Net2RoomData roomData = new Net2RoomData
+                        XmlNodeList tableData = row.SelectNodes("td");
+                        if (tableData.Count == 3)
                         {
-                            person = user,
-                            roomName = roomName,
-                            lastLogin = lastTime
-                        };
+                            string user = tableData.Item(0).InnerText.ToString();
+                            string roomName = tableData.Item(1).InnerText.ToString();
+                            string lastTime = tableData.Item(2).InnerText.ToString();
 
-                        if (mapOfRooms.ContainsKey(roomName))
-                        {
-                            mapOfRooms[roomName].Add(roomData);
+                            Net2RoomData roomData = new Net2RoomData
+                            {
+                                person = user,
+                                roomName = roomName,
+                                lastLogin = lastTime
+                            };
 
-                        }
-                        else
-                        {
-                            List<Net2RoomData> roomList = new List<Net2RoomData>();
-                            roomList.Add(roomData);
-                            mapOfRooms.Add(roomName, roomList);
+                            if (mapOfRooms.ContainsKey(roomName))
+                            {
+                                mapOfRooms[roomName].Add(roomData);
+
+                            }
+                            else
+                            {
+                                List<Net2RoomData> roomList = new List<Net2RoomData>();
+                                roomList.Add(roomData);
+                                mapOfRooms.Add(roomName, roomList);
+                            }
                         }
                     }
                 }
-                
             }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Please check the htlm parser");
+            }
+            
+            
+
             return mapOfRooms;
 
         }

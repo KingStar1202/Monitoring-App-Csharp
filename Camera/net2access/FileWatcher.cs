@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aspose.Cells.Charts;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,14 +28,43 @@ namespace Camera.net2access
                 try
                 {
                     //Path path = File(file).
+                    string path = Path.GetDirectoryName(file.FullName);
+                    FileSystemWatcher watcher = new FileSystemWatcher(path);
+                    doOnChange();
+                    watcher.NotifyFilter = NotifyFilters.Attributes
+                                | NotifyFilters.CreationTime
+                                | NotifyFilters.DirectoryName
+                                | NotifyFilters.FileName
+                                | NotifyFilters.LastAccess
+                                | NotifyFilters.LastWrite
+                                | NotifyFilters.Security
+                                | NotifyFilters.Size;
+                    
+                    
+
+                    watcher.Changed += OnChanged;
+                    watcher.Created += OnCreated;
+
                 }
                 catch (Exception ex)
                 {
-
+                    Thread.CurrentThread.Interrupt();
+                    shutdown = true;
                 }
             });
             thread.Start();
         }
+
+        private void OnCreated(object sender, FileSystemEventArgs e)
+        {
+            doOnChange();
+        }
+
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            doOnChange();
+        }
+
         public bool isStopped() { return shutdown; }
         public void doOnChange()
         {

@@ -191,7 +191,7 @@ namespace Camera
         private void SetupNet2AccessEntrantsMonitoring()
         {
             
-            System.Threading.Timer net2AccessAliveChecker = new System.Threading.Timer(net2AccessAliveActionListener, null, 1000, 1000);
+            System.Threading.Timer net2AccessAliveChecker = new System.Threading.Timer(net2AccessAliveActionListener, null, 0, 100000);
             
             //File net2AccessDataFile = File
         }
@@ -222,14 +222,15 @@ namespace Camera
         private void operatorAwarenessBackgroundTask(object state)
         {
             CameraOverView cameraOverView = (CameraOverView)state;
-            if (operatorAwareness == null)
+            if (this.operatorAwareness == null)
             {
                 Application.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    operatorAwareness = new OperatorAwarenessView(loggedInUser, cameraOverView);
+                    var operatorAwareness = new OperatorAwarenessView(loggedInUser, cameraOverView);
                     operatorAwareness.Activate();
                     operatorAwareness.Topmost = true;
                     operatorAwareness.ShowDialog();
+                    this.operatorAwareness = operatorAwareness;
                 });
             }
 

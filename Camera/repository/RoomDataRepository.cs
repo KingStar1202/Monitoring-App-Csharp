@@ -27,7 +27,7 @@ namespace Camera.repository
         }
         public void save(Dictionary<string, List<Net2RoomData>> mapOfRooms)
         {
-            string query = "TRUNCATE TABLE [room_data]";
+            string query = "TRUNCATE TABLE room_data";
             _dbContext.Database.ExecuteSqlCommand(query);
             foreach (var entry in mapOfRooms)
             {

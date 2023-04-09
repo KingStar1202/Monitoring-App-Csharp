@@ -646,8 +646,14 @@ namespace Camera.UserControls
 
         public void UpdateEntrantsAmount()
         {
-            int amount = roomDataRepository.getAmountOfPeopleInRoomWithName(RoomName.Content.ToString());
-            PeopleInRoom.Content = ("People in room: " + amount);
+            
+            string room_name = "";
+            int amount  = roomDataRepository.getAmountOfPeopleInRoomWithName(room.name);
+            PeopleInRoom.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                PeopleInRoom.Content = ("People in room: " + amount);
+            }));
+            
         }
 
         private void btnCallInside_Click(object sender, RoutedEventArgs e)
