@@ -1,7 +1,6 @@
 ﻿using Camera.constants;
 using Camera.models;
 using Camera.repository;
-using LibVLCSharp.Shared;
 using Org.BouncyCastle.Utilities.Zlib;
 using System;
 using System.Collections.Generic;
@@ -10,13 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Telerik.Windows.Controls;
 
 namespace Camera
@@ -29,11 +24,9 @@ namespace Camera
     {
         private OperatorAwarenessRepository operatorAwarenessRepository = OperatorAwarenessRepository.getInstance();
         private CameraOverView cameraOverView { get; set; }
-        private LibVLC libvlc = new LibVLC();
-        private LibVLCSharp.Shared.MediaPlayer _mediaPlayer;
         private string loggedInUser;
         private PropertyUtil property = PropertyUtil.getInstance();
-
+        private MediaPlayer mediaPlayer = new MediaPlayer();
         private DateTime startDate;
         private DateTime endDate;
  
@@ -69,19 +62,25 @@ namespace Camera
         [STAThread]
         private void SetupAudioAlarm()
         {
-            string workingDir = Environment.CurrentDirectory + @"\user\audio\";
-            string buzzerPath = workingDir  + "buzzer.wav";
-            if(!Directory.Exists(workingDir))
+            try
             {
-                Directory.CreateDirectory(workingDir);
+                string workingDir = Environment.CurrentDirectory + @"\user\audio\";
+                string buzzerPath = workingDir + "buzzer.wav";
+                if (!Directory.Exists(workingDir))
+                {
+                    Directory.CreateDirectory(workingDir);
+                }
+                mediaPlayer.Open(new Uri(buzzerPath));
+                mediaPlayer.Position = (TimeSpan.FromSeconds(10));
+                mediaPlayer.Play();
+            }
+            catch (Exception ex)
+            {
+
             }
             
-                _mediaPlayer = new LibVLCSharp.Shared.MediaPlayer(libvlc);
-                var outside_media = new Media(libvlc, buzzerPath, FromType.FromLocation);
-                _mediaPlayer.Play(outside_media);
-           
-           
         }
+
         [STAThread]
         private void OperatorAwarenessClicked()
         {
@@ -89,10 +88,10 @@ namespace Camera
             long timeTaken = (endDate.Ticks - startDate.Ticks) / 1000;
             operatorAwarenessRepository.SaveLogin(loggedInUser, timeTaken);
 
-            if (_mediaPlayer != null)
+            if (mediaPlayer != null)
             {
                 //_mediaPlayer.Stop();
-                _mediaPlayer.Dispose();
+                mediaPlayer.Stop();
             }
             cameraOverView.RestartOperatorAwarenessTimer();
         }

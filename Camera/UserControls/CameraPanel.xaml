@@ -93,7 +93,13 @@
                         </Grid.RowDefinitions>
                     </Grid>
                 </StackPanel>
-                <shared:VideoView x:Name="OutSideCameraView" MouseDoubleClick="OutSideCameraView_MouseDoubleClick" Grid.Column="1" Grid.Row="1" Background="Black" Padding="5"/>
+                <shared:VideoView x:Name="OutSideCameraView" MouseDoubleClick="OutSideCameraView_MouseDoubleClick" Grid.Column="1" Grid.Row="1" Background="Black" Padding="5">
+                    <Grid >
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/resources/Image/no-connection.png"/>
+                        </Grid.Background>
+                    </Grid>
+                </shared:VideoView>
 
                 <!--<StackPanel >
                     
@@ -141,7 +147,13 @@
                        
                         -->
                 <!--<telerik:RadWebCam HorizontalAlignment="Center"  AutoStart="False" />-->
-                <shared:VideoView x:Name="InSideCameraView" MouseDoubleClick="InSideCameraView_MouseDoubleClick"  Grid.Column="1" Grid.Row="2" Background="Black" Padding="5"/>
+                <shared:VideoView x:Name="InSideCameraView" MouseDoubleClick="InSideCameraView_MouseDoubleClick"  Grid.Column="1" Grid.Row="2" Background="Black" Padding="5">
+                    <Grid >
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/resources/Image/no-connection.png"/>
+                        </Grid.Background>
+                    </Grid>
+                </shared:VideoView>
 
                 <StackPanel Grid.Column="1" Grid.Row="3"   VerticalAlignment="Center">
                     <Grid x:Name="GasPanel">
