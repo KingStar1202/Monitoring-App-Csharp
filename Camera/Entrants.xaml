@@ -9,32 +9,32 @@
         IsTitleVisible="True"
                          Background="LightGray"
                           WindowStartupLocation="CenterScreen"
+                         Closed="RadRibbonWindow_Closed" 
                 >
-   <Grid>
-        <Grid.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
 
-            <local:AlarmSampleData x:Key="DataSource"/>
-        </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-
-        </Grid.RowDefinitions>
-        <telerik:RadGridView x:Name="radGridViewEntrants"  ShowGroupPanel="False" ItemsSource="{Binding Source={StaticResource DataSource}, Path=Alarm}"
+            </Grid.RowDefinitions>
+            <telerik:RadGridView x:Name="radGridViewEntrants"  ShowGroupPanel="False"
                                 AutoGenerateColumns="False" Width="auto">
-            <telerik:RadGridView.Columns>
-                <telerik:GridViewDataColumn Width="*" DataMemberBinding="{Binding id}" Header="USER" />
-                <telerik:GridViewDataColumn Width="*" DataMemberBinding="{Binding outside}" Header="LAST LOGIN" />
-            </telerik:RadGridView.Columns>
-            <telerik:RadGridView.Items>
+                <telerik:RadGridView.Columns>
+                    <telerik:GridViewDataColumn Width="*" DataMemberBinding="{Binding name}" Header="USER" />
+                    <telerik:GridViewDataColumn Width="*" DataMemberBinding="{Binding checkinTime}" Header="LAST LOGIN" />
+                </telerik:RadGridView.Columns>
+                <telerik:RadGridView.Items>
 
-            </telerik:RadGridView.Items>
+                </telerik:RadGridView.Items>
 
-        </telerik:RadGridView>
+            </telerik:RadGridView>
 
-    </Grid>
+        </Grid>
+    </ScrollViewer>
+    
 </telerik:RadRibbonWindow> 

@@ -25,18 +25,28 @@ namespace Camera.repository
             }
             return instance;
         }
-        public void save(Dictionary<string, List<Net2RoomData>> mapOfRooms)
+        public  void save(Dictionary<string, List<Net2RoomData>> mapOfRooms)
         {
-            string query = "TRUNCATE TABLE room_data";
-            _dbContext.Database.ExecuteSqlCommand(query);
-            foreach (var entry in mapOfRooms)
+            try
             {
-                foreach (var room in entry.Value)
+                string query = "TRUNCATE TABLE room_data";
+                _dbContext.Database.ExecuteSqlCommand(query);
+                var list = _dbContext.Net2RoomDatas.ToList();
+                _dbContext.Net2RoomDatas.RemoveRange(list);
+                foreach (var entry in mapOfRooms)
                 {
-                    _dbContext.Net2RoomDatas.Add(room);
+                    foreach (var room in entry.Value)
+                    {
+                        _dbContext.Net2RoomDatas.Add(room);
+                    }
                 }
+                _dbContext.SaveChanges();
             }
-            _dbContext.SaveChanges();
+            catch(Exception e)
+            {
+
+            }
+            
         }
 
         public int getAmountOfPeopleInRoomWithName(string roomName)

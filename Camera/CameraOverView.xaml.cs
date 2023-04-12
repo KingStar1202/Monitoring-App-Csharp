@@ -88,7 +88,7 @@ namespace Camera
 
         private void SetGridLayout(int amountOfRooms)
         {
-           
+
             if (roomRepository.getMaxRowsForGrid() > 1)
             {
                 int columnsRow1 = roomRepository.getMaxColumnsForRow(1);
@@ -133,10 +133,10 @@ namespace Camera
                 cameraPanel.SetRoomData(roomList.ElementAt(i));
                 cameraPanel.SetInetGasCodeArrayList(inetGasCodeArrayList);
                 cameraPanel.setParent(this);
-                if(camera_room.y > 1)
+                if (camera_room.y > 1)
                 {
                     Grid.SetRow(cameraPanel, 1);
-                    Grid.SetColumn(cameraPanel, i % topSect.ColumnDefinitions.Count );
+                    Grid.SetColumn(cameraPanel, i % topSect.ColumnDefinitions.Count);
                 }
                 else
                 {
@@ -144,17 +144,17 @@ namespace Camera
                     Grid.SetColumn(cameraPanel, i);
                 }
                 //cameraPanel.setParent(this);
-                
-                
+
+
                 cameraPanelList.Add(cameraPanel);
                 this.topSect.Children.Add(cameraPanel);
-                
+
             }
         }
 
         public void SetupStreamsAndPlay()
         {
-            foreach(var cameraPanel in cameraPanelList)
+            foreach (var cameraPanel in cameraPanelList)
             {
                 cameraPanel.ShowCamera();
             }
@@ -166,37 +166,37 @@ namespace Camera
             roomList.Where(e => e.instrumentSn != "<unset>").ToList().ForEach(e => equipmentSerialNumbers.Add(e.instrumentSn));
             // Thread iNetLiveBackgroundTask = new Thread(new ThreadStart())
             System.Threading.Timer iNetLiveTimer = new System.Threading.Timer(iNetLiveBackgroundTask, equipmentSerialNumbers, 0, interval);
-           
+
 
         }
 
-        private  void iNetLiveBackgroundTask(object state)
+        private void iNetLiveBackgroundTask(object state)
         {
             List<string> equipmentSerialNumbers = (List<string>)state;
-            INetLiveResponseDto iNetLiveData =  iNetSensorService.getINetLiveData(equipmentSerialNumbers);
+            INetLiveResponseDto iNetLiveData = iNetSensorService.getINetLiveData(equipmentSerialNumbers);
 
             if (iNetLiveData == null)
             {
-                
-                return ;
+
+                return;
             }
-            foreach(var cameraPanel in cameraPanelList)
+            foreach (var cameraPanel in cameraPanelList)
             {
                 cameraPanel.FeedSensorData(iNetLiveData.instrument);
             }
 
-            return ;
+            return;
         }
 
         private void SetupNet2AccessEntrantsMonitoring()
         {
-            
-            System.Threading.Timer net2AccessAliveChecker = new System.Threading.Timer(net2AccessAliveActionListener, null, 0, 100000);
-            
+
+            //System.Threading.Timer net2AccessAliveChecker = new System.Threading.Timer(net2AccessAliveActionListener, null, 0, 100000);
+            net2AccessAliveActionListener();
             //File net2AccessDataFile = File
         }
 
-        private void net2AccessAliveActionListener(object state)
+        private void net2AccessAliveActionListener()
         {
             string net2AccessLocation = propertyUtil.GetNet2AccessDataFileLocation();//ConfigurationManager.AppSettings["WHOSIN_FILE_LOCATION"].ToString();
             FileInfo net2AccessDataFile = new FileInfo(net2AccessLocation);
@@ -234,10 +234,10 @@ namespace Camera
                 });
             }
 
-            
+
         }
 
-        
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -246,7 +246,7 @@ namespace Camera
 
         private void RadRibbonWindow_Closed(object sender, EventArgs e)
         {
-            foreach(var panel in cameraPanelList)
+            foreach (var panel in cameraPanelList)
                 panel.Dispose();
         }
     }

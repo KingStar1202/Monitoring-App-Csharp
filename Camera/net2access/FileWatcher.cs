@@ -23,39 +23,31 @@ namespace Camera.net2access
 
         public void Start()
         {
-            Thread thread = new Thread(() =>
+            try
             {
-                try
-                {
-                    //Path path = File(file).
-                    string path = Path.GetDirectoryName(file.FullName);
-                    FileSystemWatcher watcher = new FileSystemWatcher(path);
-                    doOnChange();
-                    watcher.NotifyFilter = NotifyFilters.Attributes
-                                | NotifyFilters.CreationTime
-                                | NotifyFilters.DirectoryName
-                                | NotifyFilters.FileName
-                                | NotifyFilters.LastAccess
-                                | NotifyFilters.LastWrite
-                                | NotifyFilters.Security
-                                | NotifyFilters.Size;
-                    
-                    
+                //Path path = File(file).
+                string path = Path.GetDirectoryName(file.FullName);
+                FileSystemWatcher watcher = new FileSystemWatcher(path);
+                doOnChange();
+                watcher.Filter = "*.html";
+                watcher.IncludeSubdirectories = true;
+                watcher.NotifyFilter = NotifyFilters.Attributes
+                            | NotifyFilters.Size;
 
-                    watcher.Changed += OnChanged;
-                    watcher.Created += OnCreated;
 
-                }
-                catch (Exception ex)
-                {
-                    Thread.CurrentThread.Interrupt();
-                    shutdown = true;
-                }
-            });
-            thread.Start();
+
+                watcher.Changed += new FileSystemEventHandler(OnChanged);
+                watcher.EnableRaisingEvents = true;
+
+            }
+            catch (Exception ex)
+            {
+                Thread.CurrentThread.Interrupt();
+                shutdown = true;
+            }
         }
 
-        private void OnCreated(object sender, FileSystemEventArgs e)
+        private void OnRenamed(object sender, FileSystemEventArgs e)
         {
             doOnChange();
         }

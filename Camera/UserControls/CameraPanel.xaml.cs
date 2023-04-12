@@ -30,6 +30,7 @@ using System.Windows.Shapes;
 using Telerik.Windows.Controls;
 using Vlc.DotNet.Wpf;
 using static OpenTK.Graphics.OpenGL.GL;
+using Camera.services;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Camera.UserControls
@@ -46,7 +47,7 @@ namespace Camera.UserControls
         private double[] gasSensorValues;
         private string[] gasSensorMeasurementTypes;
         private string[] gasSensorTypes;
-
+        CameraScannerService scannerService = new CameraScannerService();
         // DB.....
         private RoomDataRepository roomDataRepository = RoomDataRepository.getInstance();
         private RoomRepository roomRepository = RoomRepository.getInstance();
@@ -56,7 +57,7 @@ namespace Camera.UserControls
         private List<InetGasCode> inetGasCodeArrayList = new List<InetGasCode>();
         private List<GasSensorReading> currentSensorReadings = new List<GasSensorReading>();
         //Media...
-        private LibVLC libvlc = new LibVLC("--input-repeat=2");
+        private LibVLC libvlc = new LibVLC();
 
         //public string stream_Resolution = propertyUtil.GetIntercomMonitoringInterval();//ConfigurationManager.AppSettings["Stream_Resolution"].ToString();
         public string options;
@@ -70,7 +71,7 @@ namespace Camera.UserControls
         private bool alarmIsTriggered = false;
 
 
-        private Entrants entrantsForm { get; set; }
+        private Entrants Entrants { get; set; }
 
         //Icons
         private BitmapImage disableAlarmIcon { get; set; }
@@ -103,9 +104,11 @@ namespace Camera.UserControls
             SetupAlarmButtons();
         }
 
+        
+
         public void clearEntrantsPopup()
         {
-            this.entrantsForm = null;
+            this.Entrants = null;
         }
         public void clearInsidePopup()
         {
@@ -153,10 +156,10 @@ namespace Camera.UserControls
                 }
                 else
                 {
-                    btnOutsideTriggerAlarm.Visibility = Visibility.Hidden;
-                    btnInsideTriggerAlarm.Visibility = Visibility.Hidden;
-                    btnCallInside.Visibility = Visibility.Hidden;
-                    btnCallOutside.Visibility = Visibility.Hidden;
+                    btnOutsideTriggerAlarm.Visibility = Visibility.Collapsed;
+                    btnInsideTriggerAlarm.Visibility = Visibility.Collapsed;
+                    btnCallInside.Visibility = Visibility.Collapsed;
+                    btnCallOutside.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -390,11 +393,6 @@ namespace Camera.UserControls
             lblGasValue5.Dispatcher.Invoke(new Action(() => {
                 lblGasValue5.IsEnabled = (false);
             }));
-            
-
-            //pAlarm1.setBackground(RED);
-            //pnlGas.setVisible(true);
-
         }
 
         private void takeSnapshot(bool outsideSnapshotTaken)
@@ -559,23 +557,18 @@ namespace Camera.UserControls
         }
         private void ShowDisableAlarmButton()
         {
-            btnOutsideTriggerAlarm.Visibility = Visibility.Hidden;
-            btnInsideTriggerAlarm.Visibility = Visibility.Hidden;
+            btnOutsideTriggerAlarm.Visibility = Visibility.Collapsed;
+            btnInsideTriggerAlarm.Visibility = Visibility.Collapsed;
         }
 
         private void TriggerInsideAlarm()
         {
             alarmSetupService.triggerInsideAlarm();
-
-            //alertInsideBlinkingTimer = new System.Threading.Timer(BlinkingActionListener, null, 0, 1000);
         }
 
         private void TriggerOutsideAlarm()
         {
             alarmSetupService.triggerOutsideAlarm();
-
-            //alertOutsideBlinkingTimer = new System.Threading.Timer(BlinkingActionListener, null, 0, 1000);
-
         }
 
         private void BlinkingActionListener(object state)
@@ -631,7 +624,7 @@ namespace Camera.UserControls
 
         public void ClearEntrantsPopup()
         {
-            this.entrantsForm = null;
+            this.Entrants = null;
         }
 
         public void ClearOutsidePopup()
@@ -647,7 +640,6 @@ namespace Camera.UserControls
         public void UpdateEntrantsAmount()
         {
             
-            string room_name = "";
             int amount  = roomDataRepository.getAmountOfPeopleInRoomWithName(room.name);
             PeopleInRoom.Dispatcher.BeginInvoke(new Action(() =>
             {
@@ -801,7 +793,22 @@ namespace Camera.UserControls
 
 
 
-        private void OutSideCameraView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        
+
+        private void btnMaxInside_Click(object sender, RoutedEventArgs e)
+        {
+            if (insidePopup == null)
+            {
+                insidePopup = new CameraPopup(room.name, room.outsideCamera, this, false);
+                insidePopup.ShowDialog();
+            }
+            else
+            {
+                insidePopup.ShowDialog();
+            }
+        }
+
+        private void btnMaxOutside_Click(object sender, RoutedEventArgs e)
         {
             if (outsidePopup == null)
             {
@@ -816,17 +823,13 @@ namespace Camera.UserControls
             }
         }
 
-        private void InSideCameraView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void PeopleInRoom_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (insidePopup == null)
+            if(Entrants == null)
             {
-                insidePopup = new CameraPopup(room.name, room.outsideCamera, this, false);
-                insidePopup.ShowDialog();
+                Entrants = new Entrants(this.room.name, this);
             }
-            else
-            {
-                insidePopup.ShowDialog();
-            }
+            Entrants.ShowDialog();
         }
     }
 }

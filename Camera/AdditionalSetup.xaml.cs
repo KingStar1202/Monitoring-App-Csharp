@@ -23,7 +23,7 @@ using System.Collections.ObjectModel;
 using MediaFoundation;
 using Camera.UserControls;
 using MonitoringApp.repository;
-using MonitoringApp.services;
+using Camera.services;
 using System.Threading;
 using Camera.constants;
 using LibVLCSharp.Shared;

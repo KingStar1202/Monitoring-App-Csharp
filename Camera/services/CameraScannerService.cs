@@ -11,7 +11,7 @@ using System.Threading;
 using System.Windows.Threading;
 using Org.BouncyCastle.Bcpg;
 
-namespace MonitoringApp.services
+namespace Camera.services
 {
     public class CameraScannerService
     {
@@ -31,6 +31,7 @@ namespace MonitoringApp.services
             this.end = end;
         }
 
+        public CameraScannerService() { }
 
         public List<CameraCombo> doInBackground()
         {
@@ -66,7 +67,7 @@ namespace MonitoringApp.services
 
 
 
-        private bool isActiveCamera(string host)
+        public bool isActiveCamera(string host)
         {
             try
             {

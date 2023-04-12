@@ -37,8 +37,8 @@
                         <StackPanel Grid.Row="0" Grid.Column="0">
                             <telerik:Label Content="UREA 42-R-201" HorizontalAlignment="Center" x:Name="RoomName"/>
                         </StackPanel>
-                        <StackPanel Grid.Column="2">
-                            <telerik:Label x:Name="PeopleInRoom" Content="People in Room: 0"  HorizontalAlignment="Center"/>
+                        <StackPanel Grid.Column="2" >
+                            <telerik:Label x:Name="PeopleInRoom" Content="People in Room: 0"  HorizontalAlignment="Center" Cursor="Hand" MouseUp="PeopleInRoom_MouseUp"/>
                         </StackPanel>
 
                     </Grid>
@@ -72,7 +72,9 @@
                         <telerik:RadButton    x:Name="btnCallOutside" Click="btnCallOutside_Click"  Grid.Column="0" Grid.Row="3"  >
                             <Image Source="/resources/Image/stop-call.png" x:Name="ImgCallOutside" />
                         </telerik:RadButton>
-
+                        <telerik:RadButton    x:Name="btnMaxOutside" Click="btnMaxOutside_Click"  Grid.Column="0" Grid.Row="4"  >
+                            <Image Source="/resources/Image/maximize.png" x:Name="ImgMaxOutside" />
+                        </telerik:RadButton>
                     </Grid>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="2">
@@ -93,12 +95,15 @@
                         </Grid.RowDefinitions>
                     </Grid>
                 </StackPanel>
-                <shared:VideoView x:Name="OutSideCameraView" MouseDoubleClick="OutSideCameraView_MouseDoubleClick" Grid.Column="1" Grid.Row="1" Background="Black" Padding="5">
-                    <Grid >
-                        <Grid.Background>
-                            <ImageBrush ImageSource="/resources/Image/no-connection.png"/>
-                        </Grid.Background>
-                    </Grid>
+                <shared:VideoView x:Name="OutSideCameraView"  Grid.Column="1" Grid.Row="1" Padding="5">
+                    <shared:VideoView.Background>
+                        <ImageBrush Stretch="Uniform">
+                            <ImageBrush.ImageSource>
+                                <BitmapImage CacheOption="OnLoad" CreateOptions="IgnoreImageCache" UriSource="file:///C:/Users/GURU/AppData/Local/Microsoft/VisualStudio/17.0_c563326c/Designer/Cache/1-964755564x86DD/resources/Image/no-connection.png"/>
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </shared:VideoView.Background>
+
                 </shared:VideoView>
 
                 <!--<StackPanel >
@@ -138,7 +143,9 @@
                         <telerik:RadButton x:Name="btnCallInside" Click="btnCallInside_Click"  Grid.Column="0" Grid.Row="4">
                             <Image Source="/resources/Image/stop-call.png" x:Name="imgCallInside"  />
                         </telerik:RadButton>
-
+                        <telerik:RadButton    x:Name="btnMaxInside" Click="btnMaxInside_Click"  Grid.Column="0" Grid.Row="5"  >
+                            <Image Source="/resources/Image/maximize.png" x:Name="ImgMaxInside" />
+                        </telerik:RadButton>
 
                     </Grid>
                 </StackPanel>
@@ -147,12 +154,11 @@
                        
                         -->
                 <!--<telerik:RadWebCam HorizontalAlignment="Center"  AutoStart="False" />-->
-                <shared:VideoView x:Name="InSideCameraView" MouseDoubleClick="InSideCameraView_MouseDoubleClick"  Grid.Column="1" Grid.Row="2" Background="Black" Padding="5">
-                    <Grid >
-                        <Grid.Background>
-                            <ImageBrush ImageSource="/resources/Image/no-connection.png"/>
-                        </Grid.Background>
-                    </Grid>
+                <shared:VideoView x:Name="InSideCameraView" Grid.Column="1" Grid.Row="2"  Padding="5">
+                    <shared:VideoView.Background>
+                        <ImageBrush ImageSource="/resources/Image/no-connection.png" Stretch="Uniform"/>
+                    </shared:VideoView.Background>
+
                 </shared:VideoView>
 
                 <StackPanel Grid.Column="1" Grid.Row="3"   VerticalAlignment="Center">
