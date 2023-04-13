@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MonitoringApp.repository
+namespace Camera.repository
 {
     public class CameraComboRepository
     {

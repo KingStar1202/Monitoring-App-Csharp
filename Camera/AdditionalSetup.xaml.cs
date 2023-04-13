@@ -4,31 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using System.IO;
 using OfficeOpenXml;
-
 using Telerik.Windows.Controls;
-using Camera.context;
 using Camera.models;
 using Camera.repository;
 using System.Collections.ObjectModel;
-using MediaFoundation;
 using Camera.UserControls;
-using MonitoringApp.repository;
 using Camera.services;
 using System.Threading;
 using Camera.constants;
-using LibVLCSharp.Shared;
-using Org.BouncyCastle.Utilities;
-using Microsoft.Win32;
 
 namespace Camera
 {
@@ -124,6 +111,15 @@ namespace Camera
         public void LoadInitial()
         {
             rooms = roomRepository.Get();
+            if(rooms.Count > 14 && rooms.Count <16) {
+                Rt14.IsChecked = true;
+            }
+
+            if(rooms.Count > 16)
+            {
+                Rt14.IsChecked = true;
+                Rt16.IsChecked = true;
+            }
             if (rooms.Count > initialSetCount)
             {
                 if (rooms.Count % 2 == 0)
@@ -425,8 +421,8 @@ namespace Camera
         {
 
 
-            new CameraOverView(loginedUser).ShowDialog();
-            //this.Close();
+            new CameraOverView(loginedUser).Show();
+            this.Close();
 
         }
 
@@ -948,7 +944,7 @@ namespace Camera
         private void btnSerialNumberDelete_Click(object sender, RoutedEventArgs e)
         {
             var item = SerialNumberGridView.SelectedItem as GasDetection;
-            if (item != null) { return; }
+            if (item == null) { return; }
             gasDetectionRepository.Delete(item);
             RefreshSerialNumber();
 

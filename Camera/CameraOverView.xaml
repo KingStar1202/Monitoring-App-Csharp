@@ -8,7 +8,7 @@
         
         IsTitleVisible="True"
          Closed="RadRibbonWindow_Closed"
-        Loaded="Window_Loaded"
+    
   
         >
     <!--<ScrollViewer >-->

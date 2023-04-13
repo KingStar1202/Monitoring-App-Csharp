@@ -95,14 +95,11 @@
                         </Grid.RowDefinitions>
                     </Grid>
                 </StackPanel>
-                <shared:VideoView x:Name="OutSideCameraView"  Grid.Column="1" Grid.Row="1" Padding="5">
+                <shared:VideoView x:Name="OutSideCameraView"  Grid.Column="1" Grid.Row="1" Padding="5" BorderBrush="Black" OpacityMask="Black">
                     <shared:VideoView.Background>
-                        <ImageBrush Stretch="Uniform">
-                            <ImageBrush.ImageSource>
-                                <BitmapImage CacheOption="OnLoad" CreateOptions="IgnoreImageCache" UriSource="file:///C:/Users/GURU/AppData/Local/Microsoft/VisualStudio/17.0_c563326c/Designer/Cache/1-964755564x86DD/resources/Image/no-connection.png"/>
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
+                        <ImageBrush ImageSource="/resources/Image/no-connection.png" Stretch="Uniform"/>
                     </shared:VideoView.Background>
+
 
                 </shared:VideoView>
 
@@ -154,9 +151,9 @@
                        
                         -->
                 <!--<telerik:RadWebCam HorizontalAlignment="Center"  AutoStart="False" />-->
-                <shared:VideoView x:Name="InSideCameraView" Grid.Column="1" Grid.Row="2"  Padding="5">
+                <shared:VideoView x:Name="InSideCameraView" Grid.Column="1" Grid.Row="2"  Padding="5" OpacityMask="Black">
                     <shared:VideoView.Background>
-                        <ImageBrush ImageSource="/resources/Image/no-connection.png" Stretch="Uniform"/>
+                        <ImageBrush ImageSource="/resources/Image/no-connection.png" Stretch="Uniform"  />
                     </shared:VideoView.Background>
 
                 </shared:VideoView>

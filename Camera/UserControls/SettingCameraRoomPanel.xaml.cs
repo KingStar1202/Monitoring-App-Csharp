@@ -21,7 +21,6 @@ using Camera.models;
 using System.Configuration;
 using Camera.repository;
 using Camera.context;
-using MonitoringApp.repository;
 using System.Threading;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Camera.constants;

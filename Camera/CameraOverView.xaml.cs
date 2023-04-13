@@ -7,7 +7,6 @@ using Camera.sensors.services;
 using Camera.UserControls;
 using Google.Protobuf.WellKnownTypes;
 using LibVLCSharp.Shared;
-using MonitoringApp.repository;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -45,7 +44,7 @@ namespace Camera
         //private List<MediaContainer> containerList = new List<MediaContainer>();
         //private OperatorAwarenessForm operatorAwarenessForm;
         private string loggedInUser;
-        private int initialCount = 10;
+        private int initialCount = 12;
         private System.Threading.Timer operatorAwarenessTimer { get; set; }
 
         private INetSensorService iNetSensorService = new INetSensorService();
@@ -63,6 +62,7 @@ namespace Camera
             roomList = roomRepository.Get();
             this.UserName.Content = username;
             int amountOfRooms = roomList.Count;
+            
             initialCount = amountOfRooms > initialCount ? amountOfRooms : initialCount;
             inetGasCodeArrayList = inetGasCodeRepository.getAllInetGasCodes();
             SetGridLayout(amountOfRooms);
@@ -124,7 +124,6 @@ namespace Camera
 
         private void SetupPanels(int amountOfRooms)
         {
-
             for (int i = 0; i < amountOfRooms; i++)
             {
                 Room camera_room = roomList.ElementAt(i);
@@ -239,10 +238,6 @@ namespace Camera
 
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            aspectRatio = this.ActualWidth / this.ActualHeight;
-        }
 
         private void RadRibbonWindow_Closed(object sender, EventArgs e)
         {

@@ -5,9 +5,7 @@ using Camera.repository;
 using Camera.sensors.response;
 using Camera.services;
 using LibVLCSharp.Shared;
-using MonitoringApp.repository;
 using OfficeOpenXml.Style;
-using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +14,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -30,8 +24,9 @@ using System.Windows.Shapes;
 using Telerik.Windows.Controls;
 using Vlc.DotNet.Wpf;
 using static OpenTK.Graphics.OpenGL.GL;
-using Camera.services;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace Camera.UserControls
 {
@@ -48,6 +43,8 @@ namespace Camera.UserControls
         private string[] gasSensorMeasurementTypes;
         private string[] gasSensorTypes;
         CameraScannerService scannerService = new CameraScannerService();
+
+
         // DB.....
         private RoomDataRepository roomDataRepository = RoomDataRepository.getInstance();
         private RoomRepository roomRepository = RoomRepository.getInstance();
@@ -210,19 +207,30 @@ namespace Camera.UserControls
 
         public void ShowCamera()
         {
-            string options = "?compression=30&resolution=1920x1080&fps=30&videocodec=h264";
+            string resolution = propertyUtil.GetCameraAxisResolution();
+            string options = "?compression=30&resolution="+ resolution +"&fps=30&videocodec=h264";
 
             var outside_media = new Media(libvlc, "rtsp://root:root@" + room.outsideCamera + "/axis-media/media.amp" + options, FromType.FromLocation);
             var inside_media = new Media(libvlc, "rtsp://root:root@" + room.insideCamera + "/axis-media/media.amp" + options, FromType.FromLocation);
             OutSideCameraView.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(outside_media);
             InSideCameraView.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(inside_media);
             //if (OutSideCameraView.MediaPlayer.IsPlaying) { OutSideCameraView.MediaPlayer.Stop(); }
-            this.OutSideCameraView.MediaPlayer.Play(outside_media);
+            bool isOutside = scannerService.isActiveCamera(room.outsideCamera);
+            bool isInside = scannerService.isActiveCamera(room.insideCamera);
+            if(isOutside == false)
+            {
+                OutSideCameraView.Background = null;
+            }
 
+            if (isInside == false)
+            {
+                InSideCameraView.Background = null;
+            }
+            this.OutSideCameraView.MediaPlayer.Play(outside_media);
             this.InSideCameraView.MediaPlayer.Play(inside_media);
         }
 
-
+        
 
         private void ShowTriggerAlarmButton()
         {

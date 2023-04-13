@@ -198,14 +198,6 @@
 
             </telerik:RadTabItem>
 
-
-
-
-
-
-
-
-
             <telerik:RadTabItem x:Name="RroomSetup" Header="Additional Setup">
                 <Grid VerticalAlignment="Stretch">
 
@@ -220,7 +212,7 @@
                     </Grid.RowDefinitions>
 
 
-
+                    
                     <StackPanel Grid.Row="1"   >
                         <Grid>
                             <Grid.Resources>
@@ -252,8 +244,8 @@
                             <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" >
 
 
-                                <telerik:RadGridView x:Name="SerialNumberGridView"  ShowGroupPanel="False" ItemsSource="{Binding Source={StaticResource GasDetectionDataSource}, Path=GasDetections}"
-                                AutoGenerateColumns="False" Width="auto" Height="auto" NewRowPosition="Bottom" GroupRenderMode="Flat" >
+                                <telerik:RadGridView  x:Name="SerialNumberGridView"  ShowGroupPanel="False" ItemsSource="{Binding Source={StaticResource GasDetectionDataSource}, Path=GasDetections}"
+                                AutoGenerateColumns="False" Width="auto" Height="300" NewRowPosition="Bottom" GroupRenderMode="Flat" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" >
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn  Width="0*" DataMemberBinding="{Binding id}" IsEnabled="False" IsReadOnly="True" />
                                         <telerik:GridViewDataColumn Width="*" DataMemberBinding="{Binding serialNumber}" Header="Serial Number"  />
@@ -314,7 +306,7 @@
 
 
                                 <telerik:RadGridView x:Name="AlarmSetupGridView"  ShowGroupPanel="False" ItemsSource="{Binding Source={StaticResource AlarmSetupDataSource}, Path=AlarmSetups}"
-                                AutoGenerateColumns="False" Width="auto" IsReadOnly="True"  RowActivated="AlarmSetupGridView_RowActivated">
+                                AutoGenerateColumns="False" Width="auto" IsReadOnly="True" Height="300"  RowActivated="AlarmSetupGridView_RowActivated" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True">
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn Width="*" DataMemberBinding="{Binding id}" Header="ID" />
                                         <telerik:GridViewDataColumn Width="3*" DataMemberBinding="{Binding outsideAlamIp}" Header="OutSide Alarm IP" />
@@ -332,7 +324,7 @@
 
 
                                 <telerik:RadGridView x:Name="UserGridView" Margin="30 , 0 ,0,0"  ShowGroupPanel="False" ItemsSource="{Binding Source={StaticResource UserDataSource}, Path=Users}"
-                                AutoGenerateColumns="False" Width="auto" IsReadOnly="True" RowActivated="UserGridView_RowActivated">
+                                AutoGenerateColumns="False" Width="auto" Height="300" IsReadOnly="True" RowActivated="UserGridView_RowActivated" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True">
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn Width="*" DataMemberBinding="{Binding id}" Header="ID" />
                                         <telerik:GridViewDataColumn Width="3*" DataMemberBinding="{Binding username}" Header="User Name" />
@@ -539,7 +531,6 @@
 
 
             </telerik:RadTabItem>
-
 
             <telerik:RadTabItem x:Name="Config" Header="Config">
                 <Grid Background="Transparent" Margin="4,8,4,8">

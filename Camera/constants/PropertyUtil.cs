@@ -116,6 +116,11 @@ namespace Camera.constants
             return GetPropertyAsInt(ZGroupContstant.SCANRANGE_END) > 0 ? GetPropertyAsInt(ZGroupContstant.SCANRANGE_END) : 255;
         }
 
+        public string GetCameraAxisResolution()
+        {
+            return GetPropertyAsstring(ZGroupContstant.CAMERA_AXIS_RESOLUTION);
+        }
+
 
 
         public void SetScanRangeStart(int start)

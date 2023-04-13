@@ -1,6 +1,5 @@
 ﻿using Camera.context;
 using Camera.models;
-using MonitoringApp.repository;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
